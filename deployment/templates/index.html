@@ -1,0 +1,285 @@
+<!--&lt;!&ndash;<!DOCTYPE html>&ndash;&gt;-->
+<!--&lt;!&ndash;<html lang="en">&ndash;&gt;-->
+<!--&lt;!&ndash;<head>&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta charset="UTF-8">&ndash;&gt;-->
+<!--&lt;!&ndash;    <meta name="viewport" content="width=device-width, initial-scale=1.0">&ndash;&gt;-->
+<!--&lt;!&ndash;    <title>Sentiment Analysis App</title>&ndash;&gt;-->
+<!--&lt;!&ndash;    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">&ndash;&gt;-->
+<!--&lt;!&ndash;    <style>&ndash;&gt;-->
+<!--&lt;!&ndash;        body {&ndash;&gt;-->
+<!--&lt;!&ndash;            font-family: 'Roboto', sans-serif;&ndash;&gt;-->
+<!--&lt;!&ndash;            background-color: #e8f5e9; /* Pastel green background */&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #2e7d32; /* Darker green for text */&ndash;&gt;-->
+<!--&lt;!&ndash;            display: flex;&ndash;&gt;-->
+<!--&lt;!&ndash;            flex-direction: column;&ndash;&gt;-->
+<!--&lt;!&ndash;            align-items: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            justify-content: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            height: 100vh;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin: 0;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 15px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;        h1 {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 2.5em;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: 700;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #388e3c; /* Stronger green for header */&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;        .input-container {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-bottom: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 300px;&ndash;&gt;-->
+<!--&lt;!&ndash;            background-color: #ffffff; /* White background for input container */&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;        input[type="text"], input[type="file"] {&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 12px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: 1px solid #4caf50;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1em;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-top: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;            box-sizing: border-box;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;        button {&ndash;&gt;-->
+<!--&lt;!&ndash;            background-color: #81c784; /* Light green */&ndash;&gt;-->
+<!--&lt;!&ndash;            color: white;&ndash;&gt;-->
+<!--&lt;!&ndash;            padding: 12px;&ndash;&gt;-->
+<!--&lt;!&ndash;            border: none;&ndash;&gt;-->
+<!--&lt;!&ndash;            border-radius: 8px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-size: 1em;&ndash;&gt;-->
+<!--&lt;!&ndash;            cursor: pointer;&ndash;&gt;-->
+<!--&lt;!&ndash;            transition: background-color 0.3s, transform 0.2s;&ndash;&gt;-->
+<!--&lt;!&ndash;            width: 100%;&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-top: 10px;&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;        button:hover {&ndash;&gt;-->
+<!--&lt;!&ndash;            background-color: #66bb6a; /* Slightly darker green on hover */&ndash;&gt;-->
+<!--&lt;!&ndash;            transform: translateY(-2px); /* Lift effect on hover */&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;        .message {&ndash;&gt;-->
+<!--&lt;!&ndash;            margin-top: 20px;&ndash;&gt;-->
+<!--&lt;!&ndash;            font-weight: bold;&ndash;&gt;-->
+<!--&lt;!&ndash;            text-align: center;&ndash;&gt;-->
+<!--&lt;!&ndash;            color: #388e3c; /* Match header color */&ndash;&gt;-->
+<!--&lt;!&ndash;        }&ndash;&gt;-->
+<!--&lt;!&ndash;    </style>&ndash;&gt;-->
+<!--&lt;!&ndash;</head>&ndash;&gt;-->
+<!--&lt;!&ndash;<body>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <h1>Sentiment Analysis</h1>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <div class="input-container">&ndash;&gt;-->
+<!--&lt;!&ndash;        <form method="POST" action="/predict_text">&ndash;&gt;-->
+<!--&lt;!&ndash;            <input type="text" name="input_text" placeholder="Enter your text here..." required>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button type="submit">Predict Sentiment</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        </form>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <form method="POST" action="/upload_csv" enctype="multipart/form-data">&ndash;&gt;-->
+<!--&lt;!&ndash;            <input type="file" name="csv_file" accept=".csv" required>&ndash;&gt;-->
+<!--&lt;!&ndash;            <button type="submit">Upload CSV</button>&ndash;&gt;-->
+<!--&lt;!&ndash;        </form>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    {% if message %}&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="message">{{ message }}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;    {% endif %}&ndash;&gt;-->
+
+<!--&lt;!&ndash;</body>&ndash;&gt;-->
+<!--&lt;!&ndash;</html>&ndash;&gt;-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>BERT Model Prediction</title>-->
+<!--    <style>-->
+<!--        body {-->
+<!--            font-family: Arial, sans-serif;-->
+<!--            background-color: #E8F5E9; /* Pastel green background */-->
+<!--            margin: 0;-->
+<!--            padding: 20px;-->
+<!--            color: #333;-->
+<!--        }-->
+<!--        h1 {-->
+<!--            color: #2E7D32; /* Darker green */-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--        .container {-->
+<!--            max-width: 600px;-->
+<!--            margin: auto;-->
+<!--            background-color: #FFFFFF; /* White container */-->
+<!--            border-radius: 10px;-->
+<!--            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);-->
+<!--            padding: 20px;-->
+<!--        }-->
+<!--        input[type="file"] {-->
+<!--            margin-top: 20px;-->
+<!--            width: 100%;-->
+<!--        }-->
+<!--        button {-->
+<!--            background-color: #66BB6A; /* Green button */-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            border-radius: 5px;-->
+<!--            padding: 10px;-->
+<!--            cursor: pointer;-->
+<!--            width: 100%;-->
+<!--            font-size: 16px;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+<!--        button:hover {-->
+<!--            background-color: #4CAF50; /* Darker green on hover */-->
+<!--        }-->
+<!--        h2 {-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <h1>BERT Model Prediction</h1>-->
+<!--        <input type="file" id="fileInput" accept=".csv">-->
+<!--        <button onclick="uploadFile()">Upload CSV</button>-->
+<!--        <h2 id="output"></h2>-->
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        async function uploadFile() {-->
+<!--            const fileInput = document.getElementById('fileInput');-->
+<!--            const file = fileInput.files[0];-->
+<!--            if (!file) {-->
+<!--                alert('Please select a file.');-->
+<!--                return;-->
+<!--            }-->
+
+<!--            const formData = new FormData();-->
+<!--            formData.append('file', file);-->
+
+<!--            const response = await fetch('/upload', {-->
+<!--                method: 'POST',-->
+<!--                body: formData-->
+<!--            });-->
+
+<!--            const result = await response.json();-->
+<!--            document.getElementById('output').innerText = `Drift Score: ${result.drift_score} - Action: ${result.action}`;-->
+<!--        }-->
+<!--    </script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .progress {
+            height: 30px;
+            margin-top: 20px;
+            display: none; /* Hide initially */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Sentiment Analysis Application</h1>
+        <p class="text-center">Use this application to analyze sentiment from text reviews or CSV files.</p>
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#text-input">Text Input</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#csv-input">CSV Upload</a>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="text-input" class="container tab-pane active"><br>
+                <h3>Submit a Review</h3>
+                <form id="textForm" action="/predict" method="POST">
+                    <div class="form-group">
+                        <label for="review">Enter your review:</label>
+                        <textarea class="form-control" id="review" name="review" rows="5" required></textarea>
+                    </div>
+                    <input type="hidden" name="input_type" value="text">
+                    <button type="submit" class="btn btn-primary">Analyze Sentiment</button>
+                </form>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" id="textProgress"></div>
+                </div>
+            </div>
+
+            <div id="csv-input" class="container tab-pane fade"><br>
+                <h3>Upload a CSV File</h3>
+                <form id="csvForm" action="/predict" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="csv_file">Select CSV file:</label>
+                        <input type="file" class="form-control-file" id="csv_file" name="csv_file_path" accept=".csv" required>
+                    </div>
+                    <input type="hidden" name="input_type" value="csv">
+                    <button type="submit" class="btn btn-primary">Process CSV</button>
+                </form>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" id="csvProgress"></div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <footer class="text-center">
+            <p>&copy; 2024 Sentiment Analysis App</p>
+        </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Handle text form submission
+            $("#textForm").on("submit", function() {
+                $(".progress").show();
+                var progressBar = $("#textProgress");
+                progressBar.css("width", "0%");
+
+                // Simulate a progress bar
+                var interval = setInterval(function() {
+                    var currentWidth = parseInt(progressBar.css("width"));
+                    if (currentWidth < 100) {
+                        progressBar.css("width", (currentWidth + 10) + "%");
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, 500);
+            });
+
+            // Handle CSV form submission
+            $("#csvForm").on("submit", function() {
+                $(".progress").show();
+                var progressBar = $("#csvProgress");
+                progressBar.css("width", "0%");
+
+                // Simulate a progress bar
+                var interval = setInterval(function() {
+                    var currentWidth = parseInt(progressBar.css("width"));
+                    if (currentWidth < 100) {
+                        progressBar.css("width", (currentWidth + 10) + "%");
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
+
+
