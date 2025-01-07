@@ -15,10 +15,10 @@ The project focuses on creating a robust text classification system using a pre-
 * Model Lifecycle Management: Uses MLflow for tracking, deploying, and managing the model lifecycle..
 
 # Technologies Used
-Python
-PyTorch
-Transformers
-Pandas
-Scikit-learn
-MLflow
-TQDM (for progress tracking)
+* Python
+* PyTorch
+* Transformers
+* Pandas
+* Scikit-learn
+* MLflow
+* TQDM (for progress tracking)
